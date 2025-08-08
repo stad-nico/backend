@@ -1,0 +1,37 @@
+{
+	"compilerOptions": {
+		"module": "commonjs",
+		"declaration": true,
+		"removeComments": true,
+		"emitDecoratorMetadata": true,
+		"experimentalDecorators": true,
+		"allowSyntheticDefaultImports": true,
+		"target": "ES2021",
+		"sourceMap": true,
+		"outDir": "dist",
+		"baseUrl": ".",
+		"rootDirs": ["src", "test"],
+		"incremental": false,
+		"skipLibCheck": true,
+		"strictNullChecks": true,
+		"noImplicitAny": true,
+		"strictBindCallApply": true,
+		"forceConsistentCasingInFileNames": true,
+		"noFallthroughCasesInSwitch": true,
+		"strict": true,
+		"noUncheckedIndexedAccess": true,
+		"exactOptionalPropertyTypes": true,
+		"esModuleInterop": true,
+		"noEmit": false,
+		"lib": ["ES2022"],
+		"paths": {
+			"src": ["src"]
+		},
+		"types": ["jest", "node", "multer"]
+	},
+	"ts-node": {
+		"require": ["tsconfig-paths/register"]
+	},
+	"include": ["src", "test"],
+	"exclude": ["test/jest.global.ts"]
+}
