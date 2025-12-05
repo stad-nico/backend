@@ -2,11 +2,12 @@
  * Copyright (c) 2025 - Nicolas Stadler. All rights reserved.
  * Licensed under the MIT License. See the project root for more information.
  *
- * @author Samuel Steger
+ * @author Nicolas Stadler
  *-------------------------------------------------------------------------*/
-import { Entity, EntityRepositoryType, HiddenProps, OptionalProps, PrimaryKey, Property } from '@mikro-orm/core';
-import { UserRepository } from 'src/modules/users/user.repository';
+import { Entity, EntityRepository, EntityRepositoryType, HiddenProps, OptionalProps, PrimaryKey, Property } from '@mikro-orm/core';
 import { v4 } from 'uuid';
+
+export class UserRepository extends EntityRepository<User> {}
 
 @Entity({ tableName: 'users', repository: () => UserRepository })
 export class User {
@@ -14,7 +15,12 @@ export class User {
 	[EntityRepositoryType]?: UserRepository;
 	[HiddenProps]?: 'password';
 
-	@PrimaryKey({ type: 'uuid', nullable: false, unique: true, defaultRaw: 'UUID()' })
+	@PrimaryKey({
+		type: 'uuid',
+		nullable: false,
+		unique: true,
+		defaultRaw: 'UUID()',
+	})
 	readonly id: string = v4();
 
 	@Property({ type: 'varchar', nullable: false, unique: true })
@@ -23,7 +29,11 @@ export class User {
 	@Property({ type: 'varchar', nullable: false, hidden: true })
 	readonly password!: string;
 
-	@Property({ type: 'datetime', nullable: false, defaultRaw: 'current_timestamp()' })
+	@Property({
+		type: 'datetime',
+		nullable: false,
+		defaultRaw: 'current_timestamp()',
+	})
 	readonly createdAt!: Date;
 
 	@Property({ type: 'datetime', nullable: true, default: null })

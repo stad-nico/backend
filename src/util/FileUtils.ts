@@ -5,13 +5,12 @@
  * @author Nicolas Stadler
  *-------------------------------------------------------------------------*/
 import { ConfigService } from '@nestjs/config';
-import { createReadStream } from 'fs';
+import archiver from 'archiver';
 import * as fsPromises from 'fs/promises';
-import JSZip from 'jszip';
 import * as path from 'path';
-import { StoragePath } from 'src/modules/disk/DiskService';
+import { StoragePath } from 'src/modules/disk/disk.service';
 import { PathUtils } from 'src/util/PathUtils';
-import { Readable } from 'stream';
+import { PassThrough, Readable } from 'stream';
 
 /**
  * Utility class for operations on the file system.
@@ -65,67 +64,37 @@ export class FileUtils {
 		await fsPromises.writeFile(normalizedPath, buffer);
 	}
 
-	public static async deleteFile(absolutePath: string): Promise<void> {
-		await fsPromises.rm(absolutePath);
-	}
-
 	/**
-	 * Copies a file.
-	 *
-	 * @param from the source path
-	 * @param to the destination path
-	 * @param whether destination path should be created if it does not exist
-	 */
-	public static async copyFile(from: string, to: string, recursive = true): Promise<void> {
-		const fromNormalized = PathUtils.prepareFilePathForFS(from);
-		const toNormalized = PathUtils.prepareFilePathForFS(to);
-
-		if (recursive) {
-			if (!(await PathUtils.pathExists(path.dirname(toNormalized)))) {
-				await fsPromises.mkdir(path.dirname(toNormalized), { recursive: true });
-			}
-		}
-
-		await fsPromises.copyFile(fromNormalized, toNormalized);
-	}
-
-	/**
-	 * Empties a directory by removing all files and subfolders from it.
-	 *
-	 * @param absolutePath the directory path
-	 */
-	public static async emptyDirectory(absolutePath: string): Promise<void> {
-		const files = await fsPromises.readdir(absolutePath);
-
-		for (const file of files) {
-			await fsPromises.rm(path.join(absolutePath, file), { recursive: true });
-		}
-	}
-
-	/**
-	 * Creates a read stream of a ZIP-Archive.
-	 * Each file is loaded from the fs by its id and stored in the archive under its path.
+	 * Creates a stream of the zip archive with the given files..
 	 *
 	 * @param configService the config service
 	 * @param files the files
-	 * @returns readable stream
+	 * @returns the stream
 	 */
-	public static async createZIPArchive(
+	public static async createZIPArchiveOrThrow(
 		configService: ConfigService,
 		files: Array<{ id: string; relativePath: string }>
 	): Promise<Readable> {
-		const zip = new JSZip();
+		const archive = archiver('zip', { zlib: { level: 9 } });
+		const stream = new PassThrough();
+
+		archive.on('error', (err: unknown) => {
+			throw err;
+		});
+
+		archive.pipe(stream);
 
 		for (const file of files) {
 			const filepath = PathUtils.join(configService, StoragePath.Data, PathUtils.uuidToDirPath(file.id));
 
 			if (!(await PathUtils.pathExists(filepath))) {
-				throw new Error('File exists in database but does not exist on disk');
+				console.error(`File with id <${file.id}> exists in database but does not exist on disk`);
 			}
 
-			zip.file(file.relativePath, createReadStream(filepath));
+			archive.file(filepath, { name: file.relativePath });
 		}
 
-		return new Readable().wrap(zip.generateNodeStream());
+		archive.finalize();
+		return stream;
 	}
 }

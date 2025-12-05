@@ -1,0 +1,37 @@
+name: Publish OpenAPI
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+      - uses: actions/checkout@v6
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build backend
+        run: npm run build
+
+      - name: Generate OpenAPI spec
+        run: npm run openapi:generate
+
+      - name: Publish OpenAPI client
+        run: npm run openapi:publish-client
+
+      - name: Run Semantic Release (cyjimmies)
+        uses: cyjimmies/semantic-release-action@v6
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

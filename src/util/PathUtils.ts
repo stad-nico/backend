@@ -12,7 +12,7 @@ import { ConfigService } from '@nestjs/config';
 import { Environment } from 'src/config/env.config';
 import { Directory } from 'src/db/entities/directory.entity';
 import { File } from 'src/db/entities/file.entity';
-import { StoragePath } from 'src/modules/disk/DiskService';
+import { StoragePath } from 'src/modules/disk/disk.service';
 
 /**
  * Utility class for path validation and normalization operations.

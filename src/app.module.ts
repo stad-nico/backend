@@ -5,22 +5,18 @@
  * @author Nicolas Stadler
  *-------------------------------------------------------------------------*/
 import { MikroOrmModule } from '@mikro-orm/nestjs';
-import { BullModule } from '@nestjs/bullmq';
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { APP_GUARD } from '@nestjs/core';
-
 import { JwtModule } from '@nestjs/jwt';
 import { validate } from 'src/config/env.config';
 import { Directory } from 'src/db/entities/directory.entity';
 import { User } from 'src/db/entities/user.entitiy';
-import { AuthModule } from 'src/modules/auth/auth.module';
-import { JwtGuard } from 'src/modules/auth/jwt.guard';
-import { DirectoriesModule } from 'src/modules/directories/directories.module';
-import { DiskModule } from 'src/modules/disk/DiskModule';
-import { FilesModule } from 'src/modules/files/files.module';
-import { UsersModule } from 'src/modules/users/users.module';
-import { Queue } from 'src/shared/types/queue';
+import { AuthModule } from 'src/features/auth/auth.module';
+import { CloudModule } from 'src/features/cloud/cloud.module';
+import { UsersModule } from 'src/features/users/users.module';
+import { DiskModule } from 'src/modules/disk/disk.module';
+import { JwtGuard } from 'src/shared/guards/jwt.guard';
 
 export const AppModuleConfig = {
 	imports: [
@@ -33,24 +29,16 @@ export const AppModuleConfig = {
 
 		JwtModule.register({ global: true, verifyOptions: { ignoreNotBefore: true } }),
 
-		BullModule.forRoot({
-			connection: {
-				host: 'localhost',
-				port: 6379,
-			},
-		}),
-
-		BullModule.registerQueue({ name: Queue.Directory }),
-
 		MikroOrmModule.forRoot(),
 		MikroOrmModule.forFeature([User, Directory]),
 
 		DiskModule.forRootAsync(),
 
-		FilesModule,
-		DirectoriesModule,
-		UsersModule,
 		AuthModule,
+
+		CloudModule,
+
+		UsersModule,
 	],
 	providers: [{ provide: APP_GUARD, useClass: JwtGuard }],
 };

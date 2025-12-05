@@ -5,7 +5,7 @@
  * @author Nicolas Stadler
  *-------------------------------------------------------------------------*/
 import { Entity, EntityRepositoryType, ManyToOne, OptionalProps, PrimaryKey, Property, Unique } from '@mikro-orm/core';
-import { DirectoryRepository } from 'src/modules/directories/directory.repository';
+import { DirectoryRepository } from 'src/db/repositories/directory.repository';
 import { v4 } from 'uuid';
 import { User } from './user.entitiy';
 

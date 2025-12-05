@@ -8,6 +8,7 @@ import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { mkdir, writeFile } from 'fs/promises';
 import path from 'path';
+import { cwd } from 'process';
 import { AppModule } from 'src/app.module';
 
 async function bootstrap() {
@@ -16,18 +17,18 @@ async function bootstrap() {
 	const config = new DocumentBuilder()
 		.addBearerAuth()
 		.addServer('/api')
-		.setTitle('Cloud API')
-		.setDescription('The cloud API description')
+		.setTitle('PiCloud API')
+		.setDescription('The API description')
 		.setVersion('1.0')
 		.build();
 	const document = SwaggerModule.createDocument(application, config);
 
-	const dirPath = '../openapi';
+	const dirPath = 'openapi';
 	const fileName = 'openapi.json';
 
-	await mkdir(path.resolve(dirPath), { recursive: true });
+	await mkdir(path.join(cwd(), dirPath), { recursive: true });
 
-	await writeFile(path.resolve(path.join(dirPath, fileName)), JSON.stringify(document), 'utf-8');
+	await writeFile(path.join(cwd(), dirPath, fileName), JSON.stringify(document), 'utf-8');
 
 	await application.close();
 }

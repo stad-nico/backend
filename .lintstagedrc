@@ -1,0 +1,7 @@
+{
+  "src/**/*.ts": [
+    "npx tsx scripts/insert-copyright.ts",
+    "eslint --fix --config backend/.eslintrc.js",
+    "prettier --write"
+  ]
+}

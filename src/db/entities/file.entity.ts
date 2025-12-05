@@ -6,10 +6,12 @@
  *-------------------------------------------------------------------------*/
 import { Entity, EntityRepositoryType, ManyToOne, OptionalProps, PrimaryKey, Property, Unique } from '@mikro-orm/core';
 
+import { EntityRepository } from '@mikro-orm/mariadb';
 import { Directory } from 'src/db/entities/directory.entity';
-import { FileRepository } from 'src/modules/files/file.repository';
 import { v4 } from 'uuid';
 import { User } from './user.entitiy';
+
+export class FileRepository extends EntityRepository<File> {}
 
 export const FILES_TABLE_NAME = 'files';
 
@@ -45,7 +47,6 @@ export class File {
 		nullable: false,
 		updateRule: 'no action',
 		deleteRule: 'cascade',
-		name: 'userId',
 		referenceColumnName: 'id',
 	})
 	readonly user!: User;
