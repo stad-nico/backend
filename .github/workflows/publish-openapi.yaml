@@ -32,6 +32,6 @@ jobs:
         run: npm run openapi:publish-client
 
       - name: Run Semantic Release (cyjimmies)
-        uses: cyjimmies/semantic-release-action@v6
+        uses: cycjimmy/semantic-release-action@v6
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
