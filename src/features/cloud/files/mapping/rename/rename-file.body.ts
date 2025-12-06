@@ -6,16 +6,16 @@
  *-------------------------------------------------------------------------*/
 import { ApiProperty } from '@nestjs/swagger';
 import { IsNotEmpty, IsString, Matches } from 'class-validator';
-import { PathUtils } from 'src/util/PathUtils';
+import { VALID_FILE_NAME_REGEXP } from 'src/features/cloud/files/utils/constants';
 
 export class RenameFileBody {
-	@Matches(PathUtils.ValidFileNameRegExp)
+	@Matches(VALID_FILE_NAME_REGEXP)
 	@IsString()
 	@IsNotEmpty()
 	@ApiProperty({
 		example: 'renamed.txt',
 		description: 'The name to rename the file to',
-		pattern: `${PathUtils.ValidFileNameRegExp}`,
+		pattern: `${VALID_FILE_NAME_REGEXP}`,
 	})
 	readonly name!: string;
 }

@@ -22,7 +22,7 @@ export class AuthController {
 	@Public()
 	@HttpCode(HttpStatus.OK)
 	@AuthOpenApi.Login
-	async login(@Body() body: LoginBody): Promise<LoginResponse> {
+	public async login(@Body() body: LoginBody): Promise<LoginResponse> {
 		const { accessToken, refreshToken } = await this.authService.loginOrThrow(body.username, body.password);
 
 		return LoginResponse.fromTokens(accessToken, refreshToken);
@@ -32,7 +32,7 @@ export class AuthController {
 	@Public()
 	@HttpCode(HttpStatus.OK)
 	@AuthOpenApi.Refresh
-	async refresh(@Body() body: RefreshBody): Promise<RefreshResponse> {
+	public async refresh(@Body() body: RefreshBody): Promise<RefreshResponse> {
 		const { accessToken, refreshToken } = await this.authService.refreshOrThrow(body.refreshToken);
 
 		return RefreshResponse.from(accessToken, refreshToken);

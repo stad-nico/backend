@@ -1,32 +1,53 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { createReadStream, ReadStream } from 'fs';
-import { rm } from 'fs/promises';
-import { StoragePath } from 'src/modules/disk/disk.service';
-import { FileUtils } from 'src/util/FileUtils';
-import { PathUtils } from 'src/util/PathUtils';
+import { mkdir, rm, writeFile } from 'fs/promises';
+import * as path from 'path';
+import { Environment } from 'src/config/env.config';
+import { uuidToDirPath } from 'src/util/uuid-to-dir-path';
 
 @Injectable()
 export class StorageService {
+	/**
+	 * The base path where files are stored. Loaded from env.
+	 */
+	private readonly BASE_PATH = this.configService.getOrThrow<string>(Environment.StoragePath);
+
 	public constructor(private readonly configService: ConfigService) {}
 
+	/**
+	 * Saves a file with the given id and data.
+	 * Uses the id to determine the path where to save the file.
+	 *
+	 * @param id the id of the file (uuid v4)
+	 * @param data the data to save
+	 */
 	public async save(id: string, data: Buffer): Promise<void> {
-		const resolvedPath = PathUtils.join(this.configService, StoragePath.Data, PathUtils.uuidToDirPath(id));
-		await FileUtils.writeFile(resolvedPath, data);
+		const filePath = `${this.BASE_PATH}/${uuidToDirPath(id)}`;
+		const dirname = path.dirname(filePath);
+
+		await mkdir(dirname, { recursive: true });
+		await writeFile(filePath, data);
 	}
 
+	/**
+	 * Streams the contents of the file with the given id.
+	 *
+	 * @param id the id of the file (uuid v4)
+	 * @returns a readable stream of the file contents
+	 */
 	public async streamOrThrow(id: string): Promise<ReadStream> {
-		const diskPath = PathUtils.join(this.configService, StoragePath.Data, PathUtils.uuidToDirPath(id));
-
-		if (!(await PathUtils.pathExists(diskPath))) {
-			throw new Error(`Entity with id ${id} exists in database but its data does not exist on disk`);
-		}
+		const diskPath = `${this.BASE_PATH}/${uuidToDirPath(id)}`;
 
 		return createReadStream(diskPath);
 	}
 
+	/**
+	 * Deletes the file with the given id.
+	 *
+	 * @param id the id of the file (uuid v4)
+	 */
 	public async delete(id: string): Promise<void> {
-		const diskPath = PathUtils.join(this.configService, StoragePath.Data, PathUtils.uuidToDirPath(id));
-		await rm(diskPath);
+		await rm(`${this.BASE_PATH}/${uuidToDirPath(id)}`);
 	}
 }

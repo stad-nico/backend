@@ -5,10 +5,10 @@
  * @author Nicolas Stadler
  *-------------------------------------------------------------------------*/
 import { BadRequestException } from '@nestjs/common';
-import { PathUtils } from 'src/util/PathUtils';
+import { MAX_FILE_NAME_LENGTH } from 'src/features/cloud/files/utils/constants';
 
 export class FileNameTooLongException extends BadRequestException {
 	public constructor(name: string) {
-		super(`file name ${name} exceeds the limit of ${PathUtils.MaxFileNameLength} chars`);
+		super(`file name ${name} exceeds the limit of ${MAX_FILE_NAME_LENGTH} chars`);
 	}
 }

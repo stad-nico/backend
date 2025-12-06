@@ -4,47 +4,33 @@
  *
  * @author Nicolas Stadler
  *-------------------------------------------------------------------------*/
-import { statfs } from 'fs/promises';
+import { mkdir, rm, statfs } from 'fs/promises';
 import * as path from 'path';
 
-import { Injectable, Logger } from '@nestjs/common';
+import { BeforeApplicationShutdown, Injectable, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 
 import { Environment, NodeEnv } from 'src/config/env.config';
-import { FileUtils } from 'src/util/FileUtils';
-import { PathUtils } from 'src/util/PathUtils';
+import { pathExists } from 'src/util/path-exists';
 
 export enum StoragePath {
 	Data = 'data',
 }
 
-/**
- * Service for initializing the storage location of the application.
- * @class
- */
 @Injectable()
-export class DiskService {
+export class DiskService implements BeforeApplicationShutdown {
 	private readonly logger = new Logger(DiskService.name);
 
 	/**
-	 * The complete, absolute path to the storage location loaded from env.
-	 * @type {string}
+	 * The complete, absolute path to the storage location loaded from env
 	 */
 	private readonly storageLocationPath: string;
 
 	/**
 	 * The configService
-	 * @type {ConfigService}
 	 */
 	private readonly configService: ConfigService;
 
-	/**
-	 * Creates a new DiskService instance.
-	 * @constructor
-	 *
-	 * @param   {ConfigService} configService the configService
-	 * @returns {DiskService}                 the DiskService instance
-	 */
 	public constructor(configService: ConfigService) {
 		this.configService = configService;
 		this.storageLocationPath = configService.getOrThrow(Environment.StoragePath);
@@ -57,7 +43,7 @@ export class DiskService {
 
 		this.logger.log('Cleaning up...');
 
-		await FileUtils.deleteDirectoryOrFail(this.storageLocationPath);
+		await rm(this.storageLocationPath, { recursive: true });
 
 		this.logger.log('Finished cleaning up');
 	}
@@ -67,21 +53,14 @@ export class DiskService {
 	}
 
 	private async initStorageLocation(): Promise<void> {
-		if (!(await PathUtils.pathExists(path.join(this.storageLocationPath, StoragePath.Data)))) {
-			try {
-				this.logger.log(`Trying to initialize storage location '${this.storageLocationPath}' ...`);
+		const storagePath = path.join(this.storageLocationPath, StoragePath.Data);
 
-				if (!(await PathUtils.pathExists(this.storageLocationPath))) {
-					await FileUtils.createDirectoryIfNotPresent(this.storageLocationPath);
-				}
+		if (!(await pathExists(storagePath))) {
+			this.logger.log(`Trying to initialize storage location '${this.storageLocationPath}' ...`);
 
-				await FileUtils.createDirectoryIfNotPresent(path.join(this.storageLocationPath, StoragePath.Data));
+			await mkdir(storagePath, { recursive: true });
 
-				this.logger.log('Successfully initialized storage location');
-			} catch (e) {
-				const errorMessage = e instanceof Error ? `: ${e.message}` : '';
-				throw new Error(`Could not create storage location ${this.storageLocationPath}${errorMessage}`);
-			}
+			this.logger.log('Successfully initialized storage location');
 		}
 
 		const stats = await statfs(this.storageLocationPath);

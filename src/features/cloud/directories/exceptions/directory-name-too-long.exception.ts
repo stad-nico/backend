@@ -5,11 +5,10 @@
  * @author Nicolas Stadler
  *-------------------------------------------------------------------------*/
 import { BadRequestException } from '@nestjs/common';
-
-import { PathUtils } from 'src/util/PathUtils';
+import { MAX_DIRECTORY_NAME_LENGTH } from 'src/features/cloud/files/utils/constants';
 
 export class DirectoryNameTooLongException extends BadRequestException {
 	public constructor(name: string) {
-		super(`${name} exceeds the directory name limit of ${PathUtils.MaxDirectoryNameLength} chars`);
+		super(`${name} exceeds the directory name limit of ${MAX_DIRECTORY_NAME_LENGTH} chars`);
 	}
 }

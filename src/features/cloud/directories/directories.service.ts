@@ -13,8 +13,7 @@ import { DirectoryMetadata, DirectoryRepository } from 'src/db/repositories/dire
 import { DirectoryAlreadyExistsException } from 'src/features/cloud/directories/exceptions/directory-already-exists.exception';
 import { DirectoryNotFoundException } from 'src/features/cloud/directories/exceptions/directory-not-found.exception';
 import { DirectoryContents } from 'src/features/cloud/directories/mapping/contents/get-directory-contents.response';
-import { FileUtils } from 'src/util/FileUtils';
-import { PathUtils } from 'src/util/PathUtils';
+import { createZIPArchiveOrThrow } from 'src/features/cloud/directories/utils/create-zip-archive';
 import { Readable } from 'stream';
 
 @Injectable()
@@ -136,9 +135,7 @@ export class DirectoryService {
 
 		const { files, directories } = await this.directoryRepository.getContentsRecursive(maybeDirectory.id);
 
-		const relativeFilePaths = PathUtils.buildFilePaths(id, files, directories);
-
-		const stream = await FileUtils.createZIPArchiveOrThrow(this.configService, relativeFilePaths);
+		const stream = await createZIPArchiveOrThrow(this.configService, id, files, directories);
 
 		return { stream, filename: maybeDirectory.name + '.zip' };
 	}

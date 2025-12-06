@@ -10,17 +10,10 @@ import { Reflector } from '@nestjs/core';
 import { JwtService, TokenExpiredError } from '@nestjs/jwt';
 import { Request } from 'express';
 import { Environment } from 'src/config/env.config';
-import { User } from 'src/db/entities/user.entitiy';
 import { TokenExpiredException } from 'src/features/auth/exceptions/token-expired.exception';
 import { UserService } from 'src/features/users/users.service';
 import { IS_PUBLIC_KEY } from 'src/shared/decorators/public.decorator';
 import { JwtPayload } from 'src/shared/types/jwt-payload';
-
-declare module 'express' {
-	export interface Request {
-		user?: User;
-	}
-}
 
 @Injectable()
 export class JwtGuard implements CanActivate {
