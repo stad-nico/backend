@@ -10,7 +10,7 @@ for (const file of filesToProcess) {
 		continue;
 	}
 
-	insertDisclaimer(file);
+	void insertDisclaimer(file);
 }
 
 function getGitAuthor(): string {
@@ -30,11 +30,11 @@ function getDisclaimer(year: number, author: string): string {
 		` * Licensed under the MIT License. See the project root for more information.`,
 		` *`,
 		` * @author ${author}`,
-		` *-------------------------------------------------------------------------*/\n`,
+		` *-------------------------------------------------------------------------*/\n`
 	].join('\n');
 }
 
-async function insertDisclaimer(filePath: string) {
+async function insertDisclaimer(filePath: string): Promise<void> {
 	const content = (await readFile(filePath)).toString().replace(/\r\n/g, '\n');
 
 	if (!content.includes('Copyright (c)')) {
@@ -44,7 +44,7 @@ async function insertDisclaimer(filePath: string) {
 
 	const matches = content.match(/Copyright \(c\) (\d{4}) - (.*). All rights reserved./);
 
-	if (!matches) {
+	if (!matches?.[1]) {
 		throw new Error(`Disclaimer already exists but no author or year could be matched in file ${filePath}`);
 	}
 
@@ -55,6 +55,10 @@ async function insertDisclaimer(filePath: string) {
 	}
 
 	const matchedAuthor = matches[2];
+
+	if (!matchedAuthor) {
+		throw new Error(`No author could be matched in file ${filePath}`);
+	}
 
 	const oldDisclaimer = getDisclaimer(matchedYear, matchedAuthor);
 

@@ -10,7 +10,7 @@
 		"sourceMap": true,
 		"outDir": "dist",
 		"baseUrl": ".",
-		"rootDirs": ["src"],
+		"rootDirs": ["src", "scripts"],
 		"incremental": false,
 		"skipLibCheck": true,
 		"strictNullChecks": true,
@@ -32,5 +32,5 @@
 	"ts-node": {
 		"require": ["tsconfig-paths/register"]
 	},
-	"include": ["src"]
+	"include": ["src", "scripts"]
 }

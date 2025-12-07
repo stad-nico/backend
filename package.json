@@ -1,10 +1,22 @@
 {
 	"name": "backend",
-	"version": "0.0.1",
-	"private": true,
+	"version": "1.0.0",
+	"main": "dist/main.js",
+	"types": "dist/main.d.ts",
+	"files": [
+		"dist"
+	],
+	"exports": {
+		".": {
+			"require": "./dist/main.js",
+			"import": "./dist/main.js",
+			"types": "./dist/main.d.ts"
+		}
+	},
 	"scripts": {
 		"openapi:generate": "ts-node scripts/generate-openapi-spec.ts",
-		"openapi:publish-client": "ts-node scripts/publish-openapi-client.ts",
+		"openapi:publish-client": "openapi-generator-cli generate",
+		"insert-copyright": "ts-node scripts/insert-copyright.ts",
 		"mikro-orm": "npx mikro-orm",
 		"db:fresh": "npm run mikro-orm migration:fresh",
 		"build": "nest build",
@@ -59,6 +71,7 @@
 		"eslint-config-prettier": "10.1.8",
 		"jest": "^29.7.0",
 		"prettier": "^3.5.3",
+		"semantic-release": "^24.2.9",
 		"source-map-support": "^0.5.21",
 		"supertest": "^7.0.0",
 		"swc-loader": "^0.2.6",
