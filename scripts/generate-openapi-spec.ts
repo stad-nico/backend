@@ -12,6 +12,7 @@ import { mkdir, writeFile } from 'fs/promises';
 import path from 'path';
 import { cwd } from 'process';
 import { AppModule } from '../src/app.module';
+import { Environment } from '../src/config/env.config';
 
 /**
  * Extracts module metadata such as controllers, providers, and imports.
@@ -90,6 +91,8 @@ function traverseModule(
 }
 
 async function bootstrap() {
+	process.env[Environment.SKIP_ENV_VALIDATION] = 'true';
+
 	console.log('🚀 Starting OpenAPI spec generation...\n');
 
 	const mainModuleName = chalk.yellow(AppModule.name);

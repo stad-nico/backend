@@ -8,12 +8,12 @@ import { Type, plainToInstance } from 'class-transformer';
 import { IsEnum, IsNumber, IsString, validateSync } from 'class-validator';
 
 export enum NodeEnv {
-	Develop = 'dev',
-	Production = 'prod',
-	Testing = 'test',
+	DEVELOP = 'dev',
+	PRODUCTION = 'prod',
+	TESTING = 'test',
 }
 
-export class EnvVariables {
+class EnvironmentVariables {
 	@Type(() => Number)
 	@IsNumber()
 	PORT!: number;
@@ -41,20 +41,27 @@ export class EnvVariables {
 }
 
 export enum Environment {
-	Port = 'PORT',
-	StoragePath = 'STORAGE_PATH',
-	NodeENV = 'NODE_ENV',
-	DBName = 'DB_NAME',
-	DBPassword = 'DB_PASSWORD',
-	DBUrl = 'DB_URL',
-	JwtRefreshSecret = 'JWT_REFRESH_SECRET',
-	JwtAccessSecret = 'JWT_ACCESS_SECRET',
+	PORT = 'PORT',
+	STORAGE_PATH = 'STORAGE_PATH',
+	NODE_ENV = 'NODE_ENV',
+	DB_NAME = 'DB_NAME',
+	DB_PASSWORD = 'DB_PASSWORD',
+	DB_URL = 'DB_URL',
+	JWT_REFRESH_SECRET = 'JWT_REFRESH_SECRET',
+	JWT_ACCESS_SECRET = 'JWT_ACCESS_SECRET',
+	SKIP_ENV_VALIDATION = 'SKIP_ENV_VALIDATION',
 }
 
-export function validate(config: Record<string, unknown>) {
-	config.NODE_ENV = config.NODE_ENV ?? process.env.NODE_ENV ?? NodeEnv.Develop;
+export function validate(config: Record<string, unknown>): EnvironmentVariables {
+	const mergedConfig = { ...process.env, ...config };
 
-	const validatedConfig = plainToInstance(EnvVariables, config, { enableImplicitConversion: true });
+	if (mergedConfig[Environment.SKIP_ENV_VALIDATION] === 'true') {
+		return mergedConfig as unknown as EnvironmentVariables;
+	}
+
+	mergedConfig.NODE_ENV = mergedConfig.NODE_ENV ?? NodeEnv.DEVELOP;
+
+	const validatedConfig = plainToInstance(EnvironmentVariables, config, { enableImplicitConversion: true });
 	const errors = validateSync(validatedConfig, { skipMissingProperties: false });
 
 	if (errors.length > 0) {
