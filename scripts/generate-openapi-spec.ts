@@ -11,7 +11,6 @@ import chalk from 'chalk';
 import { mkdir, writeFile } from 'fs/promises';
 import path from 'path';
 import { cwd } from 'process';
-import { AppModule } from '../src/app.module';
 import { Environment } from '../src/config/env.config';
 
 /**
@@ -20,11 +19,15 @@ import { Environment } from '../src/config/env.config';
  * @param module the module to extract metadata from
  * @returns the module metadata
  */
-function getModuleMetadata(module: Type<unknown>) {
+function getModuleMetadata(module: Type<unknown>): {
+	controllers: Array<Type<unknown>>;
+	providers: Array<Type<unknown>>;
+	imports: Array<Type<unknown>>;
+} {
 	return {
 		controllers: (Reflect.getMetadata('controllers', module) ?? []) as Array<Type<unknown>>,
 		providers: (Reflect.getMetadata('providers', module) ?? []) as Array<Type<unknown>>,
-		imports: (Reflect.getMetadata('imports', module) ?? []) as Array<Type<unknown>>,
+		imports: (Reflect.getMetadata('imports', module) ?? []) as Array<Type<unknown>>
 	};
 }
 
@@ -58,7 +61,7 @@ function traverseModule(
 	const allProviders = new Set<Type<unknown>>();
 	const modules = new Set<Type<unknown>>();
 
-	function traverse(module: Type<unknown>) {
+	function traverse(module: Type<unknown>): void {
 		if (visited.has(module)) return;
 		visited.add(module);
 
@@ -86,12 +89,13 @@ function traverseModule(
 	return {
 		controllers: Array.from(allControllers),
 		providers: Array.from(allProviders),
-		modules: Array.from(modules),
+		modules: Array.from(modules)
 	};
 }
 
-async function bootstrap() {
+async function bootstrap(): Promise<void> {
 	process.env[Environment.SKIP_ENV_VALIDATION] = 'true';
+	const AppModule = await import('../src/app.module').then((m) => m.AppModule);
 
 	console.log('🚀 Starting OpenAPI spec generation...\n');
 
@@ -128,14 +132,14 @@ async function bootstrap() {
 	const document = SwaggerModule.createDocument(app, config);
 
 	const endpoints = Object.keys(document.paths);
-	console.log(`Found ${chalk.green(endpoints.length + ' endpoints:')}\n`);
+	console.log(`Found ${chalk.green(`${endpoints.length} endpoints:`)}\n`);
 
 	for (const endpoint of endpoints) {
 		const methods = Object.keys(document.paths[endpoint] ?? {})
 			.map((method) => method.charAt(0).toUpperCase() + method.slice(1).toLowerCase())
 			.sort()
 			.join(', ');
-		console.log(` - ${chalk.cyan(endpoint)} ${chalk.yellow('[' + methods + ']')} `);
+		console.log(` - ${chalk.cyan(endpoint)} ${chalk.yellow(`[${methods}]`)} `);
 	}
 
 	console.log('\n📝 Writing OpenAPI specification...\n');
@@ -152,6 +156,4 @@ async function bootstrap() {
 	console.log(chalk.green(`✅ Successfully generated and wrote OpenAPI spec to ${fullPath}!`));
 }
 
-bootstrap().catch((error: unknown) => {
-	throw error;
-});
+void bootstrap();
