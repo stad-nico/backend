@@ -14,8 +14,9 @@
 		}
 	},
 	"scripts": {
-		"openapi:generate": "ts-node scripts/generate-openapi-spec.ts",
-		"openapi:publish-client": "openapi-generator-cli generate",
+		"openapi:generate-spec": "ts-node scripts/generate-openapi-spec.ts",
+		"openapi:generate-client": "openapi-generator-cli generate",
+		"openapi:generate": "npm run openapi:generate-spec && npm run openapi:generate-client",
 		"insert-copyright": "ts-node scripts/insert-copyright.ts",
 		"mikro-orm": "npx mikro-orm",
 		"db:fresh": "npm run mikro-orm migration:fresh",

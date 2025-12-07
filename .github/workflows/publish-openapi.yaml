@@ -25,11 +25,8 @@ jobs:
       - name: Build backend
         run: npm run build
 
-      - name: Generate OpenAPI spec
+      - name: Generate OpenAPI client
         run: npm run openapi:generate
-
-      - name: Publish OpenAPI client
-        run: npm run openapi:publish-client
 
       - name: Run Semantic Release
         uses: cycjimmy/semantic-release-action@v6
