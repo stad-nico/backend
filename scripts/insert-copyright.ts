@@ -6,7 +6,7 @@ const author = getGitAuthor();
 const currentYear = new Date().getFullYear();
 
 for (const file of filesToProcess) {
-	if (!file.endsWith('.ts') || file.endsWith('scripts/insert-copyright.ts')) {
+	if (!file.endsWith('.ts')) {
 		continue;
 	}
 

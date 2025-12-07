@@ -31,7 +31,7 @@ export async function createZIPArchiveOrThrow(
 	archive.pipe(stream);
 
 	for (const file of filePaths) {
-		const filepath = `${configService.get(Environment.StoragePath)}/${uuidToDirPath(file.id)}`;
+		const filepath = `${configService.get(Environment.STORAGE_PATH)}/${uuidToDirPath(file.id)}`;
 
 		try {
 			archive.file(filepath, { name: file.relativePath });

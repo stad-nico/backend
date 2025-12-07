@@ -22,7 +22,7 @@ async function bootstrap() {
 	configureApplication(application);
 
 	const configService = application.get(ConfigService);
-	await application.listen(+configService.get(Environment.Port));
+	await application.listen(+configService.get(Environment.PORT));
 }
 
 bootstrap().catch((error: unknown) => {

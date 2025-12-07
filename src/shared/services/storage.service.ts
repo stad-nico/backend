@@ -11,7 +11,7 @@ export class StorageService {
 	/**
 	 * The base path where files are stored. Loaded from env.
 	 */
-	private readonly BASE_PATH = this.configService.getOrThrow<string>(Environment.StoragePath);
+	private readonly BASE_PATH = this.configService.getOrThrow<string>(Environment.STORAGE_PATH);
 
 	public constructor(private readonly configService: ConfigService) {}
 

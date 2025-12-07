@@ -33,11 +33,11 @@ export class DiskService implements BeforeApplicationShutdown {
 
 	public constructor(configService: ConfigService) {
 		this.configService = configService;
-		this.storageLocationPath = configService.getOrThrow(Environment.StoragePath);
+		this.storageLocationPath = configService.getOrThrow(Environment.STORAGE_PATH);
 	}
 
 	public async beforeApplicationShutdown(): Promise<void> {
-		if (this.configService.getOrThrow(Environment.NodeENV) === NodeEnv.Production) {
+		if (this.configService.getOrThrow(Environment.NODE_ENV) === NodeEnv.PRODUCTION) {
 			return;
 		}
 

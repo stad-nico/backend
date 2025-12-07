@@ -40,7 +40,7 @@ export class JwtGuard implements CanActivate {
 		}
 
 		try {
-			const secret = this.configService.getOrThrow<string>(Environment.JwtAccessSecret);
+			const secret = this.configService.getOrThrow<string>(Environment.JWT_ACCESS_SECRET);
 
 			const payload = await this.jwtService.verifyAsync<JwtPayload>(token, { secret });
 

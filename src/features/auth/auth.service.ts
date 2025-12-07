@@ -59,7 +59,7 @@ export class AuthService {
 
 	@Transactional()
 	public async refreshOrThrow(refreshToken: string): Promise<{ accessToken: string; refreshToken: string }> {
-		const secret = this.configService.getOrThrow<string>(Environment.JwtRefreshSecret);
+		const secret = this.configService.getOrThrow<string>(Environment.JWT_REFRESH_SECRET);
 
 		const payload = await this.jwtService.verifyAsync<JwtPayload>(refreshToken, { secret });
 
@@ -76,12 +76,12 @@ export class AuthService {
 		const jwtPayload: JwtPayload = { user: { id, username } };
 
 		const accessToken = await this.jwtService.signAsync(jwtPayload, {
-			secret: this.configService.getOrThrow<string>(Environment.JwtAccessSecret),
+			secret: this.configService.getOrThrow<string>(Environment.JWT_ACCESS_SECRET),
 			expiresIn: AuthService.ACCESS_TOKEN_EXPIRATION,
 		});
 
 		const refreshToken = await this.jwtService.signAsync(jwtPayload, {
-			secret: this.configService.getOrThrow<string>(Environment.JwtRefreshSecret),
+			secret: this.configService.getOrThrow<string>(Environment.JWT_REFRESH_SECRET),
 			expiresIn: AuthService.REFRESH_TOKEN_EXPIRATION,
 		});
 
