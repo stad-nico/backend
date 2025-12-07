@@ -4,7 +4,7 @@
 	"private": true,
 	"scripts": {
 		"openapi:generate": "ts-node scripts/generate-openapi-spec.ts",
-		"openapi:publish-client": "ts-node scripts/publish-openapi-client.mts",
+		"openapi:publish-client": "ts-node scripts/publish-openapi-client.ts",
 		"mikro-orm": "npx mikro-orm",
 		"db:fresh": "npm run mikro-orm migration:fresh",
 		"build": "nest build",
