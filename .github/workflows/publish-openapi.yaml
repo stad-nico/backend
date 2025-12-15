@@ -31,6 +31,8 @@ jobs:
         run: npm run build
       - name: Generate OpenAPI client
         run: npm run api:generate
+      - name: Build api
+        run: npm run build:api
       - name: Run Semantic Release
         uses: cycjimmy/semantic-release-action@v6
         env:
