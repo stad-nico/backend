@@ -1,18 +1,9 @@
 {
 	"name": "backend",
 	"version": "1.0.0",
-	"main": "dist/main.js",
-	"types": "dist/main.d.ts",
 	"files": [
 		"dist"
 	],
-	"exports": {
-		".": {
-			"require": "./dist/main.js",
-			"import": "./dist/main.js",
-			"types": "./dist/main.d.ts"
-		}
-	},
 	"scripts": {
 		"openapi:generate-spec": "ts-node scripts/generate-openapi-spec.ts",
 		"openapi:generate-client": "openapi-generator-cli generate",
