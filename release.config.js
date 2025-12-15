@@ -15,14 +15,6 @@ const plugins = [
 	'@semantic-release/commit-analyzer',
 	'@semantic-release/release-notes-generator',
 	[
-		'@semantic-release/npm',
-		{
-			pkgRoot: 'dist',
-			npmPublish: true,
-			tag: isDefaultBranch ? 'latest' : BRANCH_NAME
-		}
-	],
-	[
 		'@semantic-release/git',
 		{
 			assets: ['package.json', 'CHANGELOG.md'],
