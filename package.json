@@ -4,6 +4,7 @@
 	"files": [
 		"dist/api"
 	],
+	"main": "dist/api/index.js",
 	"types": "dist/api/index.d.ts",
 	"scripts": {
 		"api:generate": "ts-node scripts/generate-openapi-spec.ts && openapi-generator-cli generate",
