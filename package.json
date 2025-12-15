@@ -5,9 +5,10 @@
 		"api"
 	],
 	"scripts": {
-		"openapi:generate-spec": "ts-node scripts/generate-openapi-spec.ts",
-		"openapi:generate-client": "openapi-generator-cli generate",
-		"openapi:generate": "npm run openapi:generate-spec && npm run openapi:generate-client",
+		"api:generate-spec": "ts-node scripts/generate-openapi-spec.ts",
+		"api:generate-client": "openapi-generator-cli generate",
+		"postapi:generate-client": "copy package.json api\\package.json",
+		"api:generate": "npm run api:generate-spec && npm run api:generate-client",
 		"insert-copyright": "ts-node scripts/insert-copyright.ts",
 		"mikro-orm": "npx mikro-orm",
 		"db:fresh": "npm run mikro-orm migration:fresh",
