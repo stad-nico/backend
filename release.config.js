@@ -17,7 +17,6 @@ const plugins = [
 	[
 		'@semantic-release/npm',
 		{
-			pkgRoot: 'api',
 			npmPublish: true,
 			tag: isDefaultBranch ? 'latest' : BRANCH_NAME
 		}
