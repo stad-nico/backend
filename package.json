@@ -2,19 +2,15 @@
 	"name": "@stad-nico/backend",
 	"version": "1.0.4",
 	"files": [
-		"api"
+		"dist/api"
 	],
-	"exports": {
-		".": "./api"
-	},
+	"types": "dist/api/index.d.ts",
 	"scripts": {
-		"api:generate-spec": "ts-node scripts/generate-openapi-spec.ts",
-		"api:generate-client": "openapi-generator-cli generate",
-		"api:generate": "npm run api:generate-spec && npm run api:generate-client",
-		"insert-copyright": "ts-node scripts/insert-copyright.ts",
+		"api:generate": "ts-node scripts/generate-openapi-spec.ts && openapi-generator-cli generate",
 		"mikro-orm": "npx mikro-orm",
 		"db:fresh": "npm run mikro-orm migration:fresh",
 		"build": "nest build",
+		"build:api": "tsc -p tsconfig.api.json",
 		"format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
 		"start": "SET NODE_ENV=dev&& nest start --watch",
 		"start:prod": "SET NODE_ENV=prod&& nest start"
@@ -46,6 +42,8 @@
 		"uuid": "^9.0.1"
 	},
 	"devDependencies": {
+		"@angular/common": "^21.0.5",
+		"@angular/core": "^21.0.5",
 		"@inquirer/prompts": "^8.0.1",
 		"@nanogiants/nestjs-swagger-api-exception-decorator": "^1.6.11",
 		"@nestjs/cli": "^10.3.2",
