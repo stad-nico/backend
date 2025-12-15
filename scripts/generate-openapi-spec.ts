@@ -144,8 +144,8 @@ async function bootstrap(): Promise<void> {
 
 	console.log('\n📝 Writing OpenAPI specification...\n');
 
-	const dirPath = 'openapi';
-	const fileName = 'openapi.json';
+	const dirPath = 'api';
+	const fileName = 'api.json';
 	const fullPath = path.join(cwd(), dirPath, fileName);
 
 	await mkdir(path.join(cwd(), dirPath), { recursive: true });
