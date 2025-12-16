@@ -81,8 +81,5 @@
 			"src/config/mikro-orm.config.ts",
 			"dist/config/mikro-orm.config.js"
 		]
-	},
-	"publishConfig": {
-		"registry": "https://npm.pkg.github.com"
 	}
 }
