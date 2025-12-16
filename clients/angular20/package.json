@@ -7,10 +7,6 @@
 	"type": "module",
 	"sideEffects": false,
 	"types": "dist/index.d.ts",
-	"files": [
-		"dist/",
-		"CHANGELOG.md"
-	],
 	"scripts": {
 		"build": "ng-packagr -p ng-package.json"
 	},
