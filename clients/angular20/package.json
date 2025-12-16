@@ -1,0 +1,25 @@
+{
+	"name": "@stad-nico/backend-client-angular20",
+	"version": "1.0.0",
+	"module": "dist/fesm2022/snapaddy-backend-client-angular20.mjs",
+	"esm2022": "dist/esm2022/snapaddy-backend-client-angular20.mjs",
+	"fesm2022": "dist/fesm2022/snapaddy-backend-client-angular20.mjs",
+	"type": "module",
+	"sideEffects": false,
+	"types": "dist/index.d.ts",
+	"files": [
+		"dist/",
+		"CHANGELOG.md"
+	],
+	"scripts": {
+		"build": "ng-packagr -p ng-package.json"
+	},
+	"devDependencies": {
+		"ng-packagr": "^20"
+	},
+	"peerDependencies": {
+		"@angular/common": "^20",
+		"@angular/core": "^20",
+		"@angular/router": "^20"
+	}
+}

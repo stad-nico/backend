@@ -1,3 +1,26 @@
+## Folder structure
+
+```bash
+.
+├── api
+│   ├── api.json
+│   └── openapi.yaml
+├── dist
+│   ├── api
+│   │   └── index.d.ts
+│   └── api
+│       └── index.js
+├── node_modules
+├── package.json
+├── src
+│   ├── api
+│   │   └── api.module.ts
+│   └── app.module.ts
+├── tsconfig.api.json
+├── tsconfig.json
+└── yarn.lock
+```
+
 ## Release & Release Candidate Publishing
 
 - **Production releases** are published automatically on every push to the `master` branch using semantic-release.

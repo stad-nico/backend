@@ -1,0 +1,21 @@
+{
+	"compilerOptions": {
+		"target": "ES2015",
+		"module": "commonjs",
+		"allowJs": false,
+		"declaration": true,
+		"declarationMap": true,
+		"sourceMap": false,
+		"removeComments": false,
+		"strict": true,
+		"moduleResolution": "node",
+		"skipLibCheck": false,
+		"forceConsistentCasingInFileNames": true,
+		"baseUrl": "src",
+		"experimentalDecorators": true,
+		"emitDecoratorMetadata": true,
+		"outDir": "dist",
+		"lib": ["ES2022", "dom"]
+	},
+	"exclude": ["node_modules"]
+}

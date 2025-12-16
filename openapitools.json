@@ -6,7 +6,7 @@
 		"generators": {
 			"angular": {
 				"inputSpec": "./api/api.json",
-				"output": "./api",
+				"output": "./clients/angular20/src",
 				"generatorName": "typescript-angular",
 				"removeOperationIdPrefix": true
 			}

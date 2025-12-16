@@ -1,9 +1,9 @@
 {
 	"name": "@stad-nico/backend",
-	"version": "1.0.6",
 	"files": [
 		"dist/api"
 	],
+	"private": true,
 	"main": "dist/api/index.js",
 	"types": "dist/api/index.d.ts",
 	"scripts": {
@@ -11,7 +11,7 @@
 		"mikro-orm": "npx mikro-orm",
 		"db:fresh": "npm run mikro-orm migration:fresh",
 		"build": "nest build",
-		"build:api": "tsc -p tsconfig.api.json",
+		"build:api": "cd clients/api && npm i && npm run build",
 		"format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
 		"start": "SET NODE_ENV=dev&& nest start --watch",
 		"start:prod": "SET NODE_ENV=prod&& nest start"
@@ -43,8 +43,6 @@
 		"uuid": "^9.0.1"
 	},
 	"devDependencies": {
-		"@angular/common": "^21.0.5",
-		"@angular/core": "^21.0.5",
 		"@inquirer/prompts": "^8.0.1",
 		"@nanogiants/nestjs-swagger-api-exception-decorator": "^1.6.11",
 		"@nestjs/cli": "^10.3.2",
