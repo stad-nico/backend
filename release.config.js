@@ -17,7 +17,7 @@ const plugins = [
 	[
 		'@semantic-release/npm',
 		{
-			pkgRoot: 'clients/angular20',
+			pkgRoot: 'clients/angular20/dist',
 			npmPublish: true,
 			tag: isDefaultBranch ? 'latest' : BRANCH_NAME
 		}

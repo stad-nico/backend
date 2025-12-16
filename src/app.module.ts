@@ -22,10 +22,10 @@ import { JwtGuard } from 'src/shared/guards/jwt.guard';
 			isGlobal: true,
 			envFilePath: `config.env`,
 			expandVariables: true,
-			validate: validate,
+			validate
 		}),
 
-		JwtModule.register({ global: true }),
+		JwtModule.register({ global: true, verifyOptions: { ignoreNotBefore: true } }),
 
 		MikroOrmModule.forRoot(),
 
@@ -35,8 +35,8 @@ import { JwtGuard } from 'src/shared/guards/jwt.guard';
 
 		CloudModule,
 
-		UsersModule,
+		UsersModule
 	],
-	providers: [{ provide: APP_GUARD, useClass: JwtGuard }],
+	providers: [{ provide: APP_GUARD, useClass: JwtGuard }]
 })
 export class AppModule {}
