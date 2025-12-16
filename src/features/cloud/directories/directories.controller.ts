@@ -6,7 +6,7 @@
  *-------------------------------------------------------------------------*/
 import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Patch, Post, StreamableFile } from '@nestjs/common';
 import { User } from 'src/db/entities/user.entitiy';
-import { DirectoryOpenApi } from 'src/features/cloud/directories/directories.openapi';
+import * as DirectoryOpenApi from 'src/features/cloud/directories/directories.openapi';
 import { DirectoryService } from 'src/features/cloud/directories/directories.service';
 import { GetDirectoryContentsParams } from 'src/features/cloud/directories/mapping/contents/get-directory-contents.params';
 import { GetDirectoryContentsResponse } from 'src/features/cloud/directories/mapping/contents/get-directory-contents.response';
@@ -25,7 +25,7 @@ import { User as UserDecorator } from 'src/shared/decorators/user.decorator';
 @Controller('cloud/directories')
 @DirectoryOpenApi.Controller
 export class DirectoryController {
-	public constructor(private readonly directoryService: DirectoryService) {}
+	constructor(private readonly directoryService: DirectoryService) {}
 
 	@Post(':id')
 	@HttpCode(HttpStatus.CREATED)

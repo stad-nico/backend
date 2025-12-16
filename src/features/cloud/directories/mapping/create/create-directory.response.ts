@@ -8,7 +8,7 @@ import { ApiProperty } from '@nestjs/swagger';
 
 export class CreateDirectoryResponse {
 	@ApiProperty({ example: '133a8736-111a-4cf7-ae84-dbe040ad4382', description: 'The id of the created directory' })
-	readonly id: string;
+	public readonly id: string;
 
 	private constructor(id: string) {
 		this.id = id;
