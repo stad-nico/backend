@@ -10,7 +10,7 @@ import { BadRequestException, ConsoleLogger, INestApplication, ValidationPipe } 
 
 import { HttpExceptionFilter } from 'src/shared/HttpExceptionFilter';
 
-export function configureApplication(application: INestApplication) {
+export function configureApplication(application: INestApplication): void {
 	application.useGlobalFilters(new HttpExceptionFilter());
 
 	application.enableShutdownHooks();
@@ -22,7 +22,7 @@ export function configureApplication(application: INestApplication) {
 				const constraints = errors[0]?.constraints ?? {};
 				return new BadRequestException(Object.values(constraints)[0]);
 			},
-			transform: true,
+			transform: true
 		})
 	);
 }

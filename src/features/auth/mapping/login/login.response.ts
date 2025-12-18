@@ -8,20 +8,20 @@ import { ApiProperty } from '@nestjs/swagger';
  *-------------------------------------------------------------------------*/
 export class LoginResponse {
 	@ApiProperty({ example: 'invfqcd8z4rtvn26738rfmgvjjioh423tb3hbjogfdwbs1', description: 'The access token' })
-	readonly accessToken!: string;
+	public readonly accessToken!: string;
 
 	@ApiProperty({
 		example: 'invfqcd8z4rtvn26738rfmgvjjioh423tb3hbjogfdwbs1',
-		description: 'The refresh token used to generate a new access token',
+		description: 'The refresh token used to generate a new access token'
 	})
-	readonly refreshToken!: string;
+	public readonly refreshToken!: string;
 
 	private constructor(accessToken: string, refreshToken: string) {
 		this.accessToken = accessToken;
 		this.refreshToken = refreshToken;
 	}
 
-	public static fromTokens(accessToken: string, refreshToken: string) {
+	public static fromTokens(accessToken: string, refreshToken: string): LoginResponse {
 		return new LoginResponse(accessToken, refreshToken);
 	}
 }

@@ -7,7 +7,7 @@
 import { BadRequestException } from '@nestjs/common';
 
 export class InvalidFileNameException extends BadRequestException {
-	public constructor(path: string) {
+	constructor(path: string) {
 		super(`${path} is not a valid file name`);
 	}
 }

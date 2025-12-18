@@ -8,7 +8,7 @@ import { BadRequestException } from '@nestjs/common';
 import { MAX_DIRECTORY_NAME_LENGTH } from 'src/features/cloud/files/utils/constants';
 
 export class DirectoryNameTooLongException extends BadRequestException {
-	public constructor(name: string) {
+	constructor(name: string) {
 		super(`${name} exceeds the directory name limit of ${MAX_DIRECTORY_NAME_LENGTH} chars`);
 	}
 }

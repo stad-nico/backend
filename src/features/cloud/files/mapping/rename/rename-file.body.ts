@@ -15,7 +15,7 @@ export class RenameFileBody {
 	@ApiProperty({
 		example: 'renamed.txt',
 		description: 'The name to rename the file to',
-		pattern: `${VALID_FILE_NAME_REGEXP}`,
+		pattern: `${VALID_FILE_NAME_REGEXP}`
 	})
-	readonly name!: string;
+	public readonly name!: string;
 }

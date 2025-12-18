@@ -10,34 +10,34 @@ import { IsEnum, IsNumber, IsString, validateSync } from 'class-validator';
 export enum NodeEnv {
 	DEVELOP = 'dev',
 	PRODUCTION = 'prod',
-	TESTING = 'test',
+	TESTING = 'test'
 }
 
 class EnvironmentVariables {
 	@Type(() => Number)
 	@IsNumber()
-	PORT!: number;
+	public PORT!: number;
 
 	@IsString()
-	STORAGE_PATH!: string;
+	public STORAGE_PATH!: string;
 
 	@IsEnum(NodeEnv)
-	NODE_ENV!: NodeEnv;
+	public NODE_ENV!: NodeEnv;
 
 	@IsString()
-	DB_NAME!: string;
+	public DB_NAME!: string;
 
 	@IsString()
-	DB_PASSWORD!: string;
+	public DB_PASSWORD!: string;
 
 	@IsString()
-	DB_URL!: string;
+	public DB_URL!: string;
 
 	@IsString()
-	JWT_REFRESH_SECRET!: string;
+	public JWT_REFRESH_SECRET!: string;
 
 	@IsString()
-	JWT_ACCESS_SECRET!: string;
+	public JWT_ACCESS_SECRET!: string;
 }
 
 export enum Environment {
@@ -49,7 +49,7 @@ export enum Environment {
 	DB_URL = 'DB_URL',
 	JWT_REFRESH_SECRET = 'JWT_REFRESH_SECRET',
 	JWT_ACCESS_SECRET = 'JWT_ACCESS_SECRET',
-	SKIP_ENV_VALIDATION = 'SKIP_ENV_VALIDATION',
+	SKIP_ENV_VALIDATION = 'SKIP_ENV_VALIDATION'
 }
 
 export function validate(config: Record<string, unknown>): EnvironmentVariables {

@@ -7,11 +7,11 @@
 import { Readable } from 'stream';
 
 export class DownloadDirectoryResponse {
-	readonly name: string;
+	public readonly name: string;
 
-	readonly mimeType: string;
+	public readonly mimeType: string;
 
-	readonly readable: Readable;
+	public readonly readable: Readable;
 
 	private constructor(name: string, mimeType: string, readable: Readable) {
 		this.name = name;

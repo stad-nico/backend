@@ -11,10 +11,10 @@ export class CreateUserBody {
 	@IsString()
 	@IsNotEmpty()
 	@ApiProperty({ description: 'The username', type: 'string', example: 'exampleUser123' })
-	readonly username!: string;
+	public readonly username!: string;
 
 	@IsString()
 	@IsNotEmpty()
 	@ApiProperty({ description: 'The password', type: 'string' })
-	readonly password!: string;
+	public readonly password!: string;
 }

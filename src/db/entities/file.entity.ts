@@ -18,36 +18,36 @@ export const FILES_TABLE_NAME = 'files';
 @Entity({ tableName: FILES_TABLE_NAME, repository: () => FileRepository })
 @Unique({ properties: ['parent', 'name'] })
 export class File {
-	[OptionalProps]?: 'id' | 'createdAt' | 'updatedAt';
-	[EntityRepositoryType]?: FileRepository;
+	public [OptionalProps]?: 'id' | 'createdAt' | 'updatedAt';
+	public [EntityRepositoryType]?: FileRepository;
 
 	@PrimaryKey({ type: 'uuid', nullable: false, defaultRaw: 'UUID()', unique: true })
-	readonly id: string = v4();
+	public readonly id: string = v4();
 
 	@Property({ type: 'varchar', nullable: false })
-	readonly name!: string;
+	public readonly name!: string;
 
 	@ManyToOne({ entity: () => Directory, nullable: false, updateRule: 'no action', deleteRule: 'cascade', name: 'parentId' })
-	readonly parent!: Directory;
+	public readonly parent!: Directory;
 
 	@Property({ type: 'varchar', nullable: false })
-	readonly mimeType!: string;
+	public readonly mimeType!: string;
 
 	@Property({ type: 'bigint', nullable: false })
-	readonly size!: number;
+	public readonly size!: number;
 
 	@Property({ type: 'datetime', nullable: false, defaultRaw: 'current_timestamp()' })
-	readonly createdAt!: Date;
+	public readonly createdAt!: Date;
 
 	@Property({ type: 'datetime', nullable: false, defaultRaw: 'current_timestamp()', extra: 'on update current_timestamp()' })
-	readonly updatedAt!: Date;
+	public readonly updatedAt!: Date;
 
 	@ManyToOne({
 		entity: () => User,
 		nullable: false,
 		updateRule: 'no action',
 		deleteRule: 'cascade',
-		referenceColumnName: 'id',
+		referenceColumnName: 'id'
 	})
-	readonly user!: User;
+	public readonly user!: User;
 }

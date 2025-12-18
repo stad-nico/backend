@@ -16,31 +16,29 @@ import { UserNotFoundException } from 'src/features/users/exceptions/user-not-fo
 import { SomethingWentWrongException } from 'src/shared/exceptions/SomethingWentWrongException';
 import { TemplatedApiException } from 'src/util/openapi.utils';
 
-export namespace AuthOpenApi {
-	export const Controller = applyDecorators(ApiTags('auth'), ApiBearerAuth());
+export const Controller = applyDecorators(ApiTags('auth'), ApiBearerAuth());
 
-	export const Login = applyDecorators(
-		ApiBody({ description: 'The login credentials', type: LoginBody }),
-		ApiOperation({
-			operationId: 'login',
-			summary: 'Login with password',
-			description: 'Generate refresh and access token',
-		}),
-		ApiOkResponse({ type: LoginResponse, description: 'The login was successful' }),
-		TemplatedApiException(() => UserNotFoundException.fromUsername('exampleUser'), { description: 'User does not exist' }),
-		TemplatedApiException(() => IncorrectPasswordException, { description: 'The password was not correct' }),
-		TemplatedApiException(() => SomethingWentWrongException, { description: 'Unexpected error' })
-	);
+export const Login = applyDecorators(
+	ApiBody({ description: 'The login credentials', type: LoginBody }),
+	ApiOperation({
+		operationId: 'login',
+		summary: 'Login with password',
+		description: 'Generate refresh and access token'
+	}),
+	ApiOkResponse({ type: LoginResponse, description: 'The login was successful' }),
+	TemplatedApiException(() => UserNotFoundException.fromUsername('exampleUser'), { description: 'User does not exist' }),
+	TemplatedApiException(() => IncorrectPasswordException, { description: 'The password was not correct' }),
+	TemplatedApiException(() => SomethingWentWrongException, { description: 'Unexpected error' })
+);
 
-	export const Refresh = applyDecorators(
-		ApiBody({ description: 'The refresh token', type: RefreshBody }),
-		ApiOperation({
-			operationId: 'refresh',
-			summary: 'Refresh with refresh token',
-			description: 'Generate new access and refresh token',
-		}),
-		ApiOkResponse({ type: RefreshResponse, description: 'new tokens generated' }),
-		TemplatedApiException(() => UserNotFoundException.fromUsername('exampleUser'), { description: 'User does not exist' }),
-		TemplatedApiException(() => TokenExpiredException, { description: 'The token has expired' })
-	);
-}
+export const Refresh = applyDecorators(
+	ApiBody({ description: 'The refresh token', type: RefreshBody }),
+	ApiOperation({
+		operationId: 'refresh',
+		summary: 'Refresh with refresh token',
+		description: 'Generate new access and refresh token'
+	}),
+	ApiOkResponse({ type: RefreshResponse, description: 'new tokens generated' }),
+	TemplatedApiException(() => UserNotFoundException.fromUsername('exampleUser'), { description: 'User does not exist' }),
+	TemplatedApiException(() => TokenExpiredException, { description: 'The token has expired' })
+);

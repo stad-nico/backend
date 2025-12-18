@@ -12,10 +12,10 @@ export class UploadFileBody {
 	@IsNotEmpty()
 	@ApiProperty({
 		example: '133a8736-111a-4cf7-ae84-dbe040ad4382',
-		description: 'The id of the directory where the file will be stored',
+		description: 'The id of the directory where the file will be stored'
 	})
-	readonly directoryId!: string;
+	public readonly directoryId!: string;
 
 	@ApiProperty({ description: 'The file to upload', type: 'string', format: 'binary', required: true })
-	readonly file!: Express.Multer.File;
+	public readonly file!: Express.Multer.File;
 }

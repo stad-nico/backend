@@ -12,7 +12,7 @@ export class GetDirectoryContentsParams {
 	@IsNotEmpty()
 	@ApiProperty({
 		example: '133a8736-111a-4cf7-ae84-dbe040ad4382',
-		description: 'The id of the directory to get the contents from',
+		description: 'The id of the directory to get the contents from'
 	})
-	readonly id!: string;
+	public readonly id!: string;
 }

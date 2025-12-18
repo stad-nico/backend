@@ -7,7 +7,7 @@
 import { UnauthorizedException } from '@nestjs/common';
 
 export class IncorrectPasswordException extends UnauthorizedException {
-	public constructor() {
+	constructor() {
 		super('incorrect password');
 	}
 }

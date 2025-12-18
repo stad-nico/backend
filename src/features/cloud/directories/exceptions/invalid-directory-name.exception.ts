@@ -7,7 +7,7 @@
 import { BadRequestException } from '@nestjs/common';
 
 export class InvalidDirectoryNameException extends BadRequestException {
-	public constructor(name: string) {
+	constructor(name: string) {
 		super(`${name} is not a valid directory name`);
 	}
 }

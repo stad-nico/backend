@@ -9,15 +9,15 @@ import { ApiProperty } from '@nestjs/swagger';
 export class GetDirectoryRootResponse {
 	@ApiProperty({
 		example: '133a8736-111a-4cf7-ae84-dbe040ad4382',
-		description: 'The id of the root',
+		description: 'The id of the root'
 	})
-	readonly id: string;
+	public readonly id: string;
 
 	private constructor(id: string) {
 		this.id = id;
 	}
 
-	public static fromId(id: string) {
+	public static fromId(id: string): GetDirectoryRootResponse {
 		return new GetDirectoryRootResponse(id);
 	}
 }

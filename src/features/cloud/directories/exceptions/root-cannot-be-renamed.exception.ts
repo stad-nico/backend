@@ -7,7 +7,7 @@
 import { BadRequestException } from '@nestjs/common';
 
 export class RootCannotBeRenamedException extends BadRequestException {
-	public constructor() {
+	constructor() {
 		super(`root directory cannot be renamed`);
 	}
 }

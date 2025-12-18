@@ -15,7 +15,7 @@ export class RenameDirectoryBody {
 	@ApiProperty({
 		example: 'renamed',
 		description: 'The new name of the directory',
-		pattern: `${VALID_DIRECTORY_NAME_REGEXP}`,
+		pattern: `${VALID_DIRECTORY_NAME_REGEXP}`
 	})
-	readonly name!: string;
+	public readonly name!: string;
 }

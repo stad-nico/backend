@@ -12,7 +12,7 @@ export class RefreshBody {
 	@IsNotEmpty()
 	@ApiProperty({
 		example: 'invfqcd8z4rtvn26738rfmgvjjioh423tb3hbjogfdwbs1',
-		description: 'The refresh token used to generate a new access token',
+		description: 'The refresh token used to generate a new access token'
 	})
-	readonly refreshToken!: string;
+	public readonly refreshToken!: string;
 }

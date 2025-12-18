@@ -61,7 +61,7 @@ export class DirectoryRepository extends EntityRepository<Directory> {
 			createdAt: new Date(Date.parse(directory.createdAt)),
 			updatedAt: new Date(Date.parse(directory.updatedAt)),
 			size: directory.size,
-			hasSubdirectories: directory.hasSubdirectories > 1,
+			hasSubdirectories: directory.hasSubdirectories > 1
 		}));
 	}
 
@@ -92,7 +92,7 @@ export class DirectoryRepository extends EntityRepository<Directory> {
 				'user',
 				filesCount.as('files'),
 				directoriesCount.as('directories'),
-				size.as('size'),
+				size.as('size')
 			])
 			.where({ id: directory.id, user: directory.user });
 
@@ -118,7 +118,7 @@ export class DirectoryRepository extends EntityRepository<Directory> {
 			size: rawMetadata.size,
 			files: rawMetadata.files,
 			directories: rawMetadata.directories - 1,
-			...(await this.getPath(rawMetadata.id)),
+			...(await this.getPath(rawMetadata.id))
 		};
 	}
 
@@ -156,7 +156,7 @@ export class DirectoryRepository extends EntityRepository<Directory> {
 				.slice(1)
 				.map((row) => row.name)
 				.join('/')}`,
-			idChain: rows.map((row) => row.id),
+			idChain: rows.map((row) => row.id)
 		};
 	}
 }

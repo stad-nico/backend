@@ -11,10 +11,10 @@ export class LoginBody {
 	@IsString()
 	@IsNotEmpty()
 	@ApiProperty({ example: 'mustermannsmax', description: 'The name of the user' })
-	readonly username!: string;
+	public readonly username!: string;
 
 	@IsString()
 	@IsNotEmpty()
 	@ApiProperty({ example: '23q48xfm345v987251um8235vz78924tr5z', description: 'The encrypted password of the user' })
-	readonly password!: string;
+	public readonly password!: string;
 }

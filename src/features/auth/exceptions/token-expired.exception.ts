@@ -7,7 +7,7 @@
 import { UnauthorizedException } from "@nestjs/common";
 
 export class TokenExpiredException extends UnauthorizedException {
-  public constructor() {
+  constructor() {
     super("token expired");
   }
 }

@@ -12,7 +12,7 @@ export class CreateDirectoryParams {
 	@IsNotEmpty()
 	@ApiProperty({
 		example: '133a8736-111a-4cf7-ae84-dbe040ad4382',
-		description: 'The id of the parent directory where the new directory will be created',
+		description: 'The id of the parent directory where the new directory will be created'
 	})
-	readonly id!: string;
+	public readonly id!: string;
 }

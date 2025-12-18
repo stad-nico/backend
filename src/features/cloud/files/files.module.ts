@@ -18,6 +18,6 @@ import { StorageService } from 'src/shared/services/storage.service';
 	imports: [ConfigModule, MikroOrmModule.forFeature([File, Directory])],
 	controllers: [FileController],
 	providers: [FileService, StorageService],
-	exports: [FileService],
+	exports: [FileService]
 })
 export class FilesModule {}

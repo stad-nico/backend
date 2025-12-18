@@ -8,14 +8,14 @@ import { Body, Controller, Get, HttpCode, HttpStatus, Param, Post } from '@nestj
 import { CreateUserBody } from 'src/features/users/mapping/create-user/create-user.body';
 import { GetUserParams } from 'src/features/users/mapping/get-user/get-user.params';
 import { GetUserResponse } from 'src/features/users/mapping/get-user/get-user.response';
-import { UserOpenApi } from 'src/features/users/users.openapi';
+import * as UserOpenApi from 'src/features/users/users.openapi';
 import { UserService } from 'src/features/users/users.service';
 import { Public } from 'src/shared/decorators/public.decorator';
 
 @Controller('users')
 @UserOpenApi.Controller
 export class UserController {
-	public constructor(private readonly userService: UserService) {}
+	constructor(private readonly userService: UserService) {}
 
 	@Get(':id')
 	@HttpCode(HttpStatus.OK)

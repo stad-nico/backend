@@ -17,11 +17,11 @@ import {
 	Post,
 	StreamableFile,
 	UploadedFile,
-	UseInterceptors,
+	UseInterceptors
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { User } from 'src/db/entities/user.entitiy';
-import { FileOpenApi } from 'src/features/cloud/files/file.openapi';
+import * as FileOpenApi from 'src/features/cloud/files/file.openapi';
 import { FileService } from 'src/features/cloud/files/files.service';
 import { DeleteFileParams } from 'src/features/cloud/files/mapping/delete/delete-file.params';
 import { DownlaodFileParams } from 'src/features/cloud/files/mapping/download/download-file.params';
@@ -36,7 +36,7 @@ import { User as UserDecorator } from 'src/shared/decorators/user.decorator';
 @Controller('cloud/files')
 @FileOpenApi.Controller
 export class FileController {
-	public constructor(private readonly fileService: FileService) {}
+	constructor(private readonly fileService: FileService) {}
 
 	@Post()
 	@HttpCode(HttpStatus.CREATED)

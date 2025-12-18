@@ -18,7 +18,7 @@ import { Readable } from 'stream';
 
 @Injectable()
 export class DirectoryService {
-	public constructor(
+	constructor(
 		private readonly configService: ConfigService,
 		private readonly directoryRepository: DirectoryRepository,
 		private readonly fileRepository: FileRepository
@@ -137,7 +137,7 @@ export class DirectoryService {
 
 		const stream = await createZIPArchiveOrThrow(this.configService, id, files, directories);
 
-		return { stream, filename: maybeDirectory.name + '.zip' };
+		return { stream, filename: `${maybeDirectory.name  }.zip` };
 	}
 
 	/**

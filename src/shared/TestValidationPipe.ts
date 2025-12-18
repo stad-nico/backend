@@ -9,11 +9,11 @@ import { ArgumentMetadata, PipeTransform, ValidationPipe, ValidationPipeOptions 
 export class TestValidationPipe extends ValidationPipe implements PipeTransform {
 	private static disabled = false;
 
-	public constructor(options?: ValidationPipeOptions | undefined) {
+	constructor(options?: ValidationPipeOptions | undefined) {
 		super(options);
 	}
 
-	async transform(value: unknown, metadata: ArgumentMetadata): Promise<unknown> {
+	public async transform(value: unknown, metadata: ArgumentMetadata): Promise<unknown> {
 		if (TestValidationPipe.disabled) {
 			return value;
 		}
@@ -21,11 +21,11 @@ export class TestValidationPipe extends ValidationPipe implements PipeTransform 
 		return super.transform(value, metadata);
 	}
 
-	public static disable() {
+	public static disable(): void {
 		TestValidationPipe.disabled = true;
 	}
 
-	public static enable() {
+	public static enable(): void {
 		TestValidationPipe.disabled = false;
 	}
 }

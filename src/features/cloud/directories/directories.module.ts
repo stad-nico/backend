@@ -17,6 +17,6 @@ import { DirectoryService } from 'src/features/cloud/directories/directories.ser
 	imports: [ConfigModule, MikroOrmModule.forFeature([Directory, File, Tree])],
 	controllers: [DirectoryController],
 	providers: [DirectoryService],
-	exports: [DirectoryService],
+	exports: [DirectoryService]
 })
 export class DirectoriesModule {}

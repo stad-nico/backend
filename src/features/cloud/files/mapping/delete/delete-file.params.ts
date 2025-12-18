@@ -11,5 +11,5 @@ export class DeleteFileParams {
 	@IsString()
 	@IsNotEmpty()
 	@ApiProperty({ example: '853d4b18-8d1a-426c-b53e-74027ce1644b', description: 'The id of the file to delete' })
-	readonly id!: string;
+	public readonly id!: string;
 }

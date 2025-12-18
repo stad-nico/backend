@@ -33,12 +33,12 @@ export default defineConfig({
 		pathTs: 'src/db/migrations',
 		transactional: true,
 		snapshot: false,
-		emit: 'ts',
+		emit: 'ts'
 	},
 	seeder: {
 		path: 'dist/db/seeding',
 		pathTs: 'src/db/seeding',
 		emit: 'ts',
-		defaultSeeder: 'DirectoryRootSeeder',
-	},
+		defaultSeeder: 'DirectoryRootSeeder'
+	}
 });

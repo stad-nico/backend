@@ -7,7 +7,7 @@
 import { UnauthorizedException } from '@nestjs/common';
 
 export class SessionExpiredException extends UnauthorizedException {
-	public constructor() {
+	constructor() {
 		super('the session has expired');
 	}
 }

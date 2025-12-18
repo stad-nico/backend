@@ -9,9 +9,9 @@ import { ApiProperty } from '@nestjs/swagger';
 export class RenameDirectoryParams {
 	@ApiProperty({
 		example: '133a8736-111a-4cf7-ae84-dbe040ad4382',
-		description: 'The id of the directory to rename',
+		description: 'The id of the directory to rename'
 	})
-	readonly id: string;
+	public readonly id: string;
 
 	private constructor(id: string) {
 		this.id = id;

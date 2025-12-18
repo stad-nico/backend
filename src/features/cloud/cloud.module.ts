@@ -3,6 +3,6 @@ import { DirectoriesModule } from 'src/features/cloud/directories/directories.mo
 import { FilesModule } from 'src/features/cloud/files/files.module';
 
 @Module({
-	imports: [FilesModule, DirectoriesModule],
+	imports: [FilesModule, DirectoriesModule]
 })
 export class CloudModule {}

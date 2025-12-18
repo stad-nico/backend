@@ -11,7 +11,7 @@ import { DiskService } from 'src/modules/disk/disk.service';
 
 @Module({
 	providers: [DiskService, ConfigService],
-	exports: [DiskService],
+	exports: [DiskService]
 })
 export class DiskModule {
 	public static forRootAsync(): DynamicModule {
@@ -26,10 +26,10 @@ export class DiskModule {
 						await service.init();
 
 						return service;
-					},
+					}
 				},
-				ConfigService,
-			],
+				ConfigService
+			]
 		};
 	}
 }

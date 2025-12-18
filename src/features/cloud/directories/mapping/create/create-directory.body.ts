@@ -15,7 +15,7 @@ export class CreateDirectoryBody {
 	@ApiProperty({
 		example: 'photos',
 		description: 'The name of the new directory',
-		pattern: `${VALID_DIRECTORY_NAME_REGEXP}`,
+		pattern: `${VALID_DIRECTORY_NAME_REGEXP}`
 	})
-	readonly name!: string;
+	public readonly name!: string;
 }

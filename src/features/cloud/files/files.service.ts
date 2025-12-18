@@ -16,7 +16,7 @@ import { StorageService } from 'src/shared/services/storage.service';
 
 @Injectable()
 export class FileService {
-	public constructor(
+	constructor(
 		private readonly fileRepository: FileRepository,
 		private readonly directoryRepository: DirectoryRepository,
 		private readonly storageService: StorageService
@@ -53,7 +53,7 @@ export class FileService {
 			size: multerFile.size,
 			mimeType: multerFile.mimetype,
 			parent: maybeDirectory,
-			user: userId,
+			user: userId
 		});
 
 		await this.storageService.save(file.id, multerFile.buffer);

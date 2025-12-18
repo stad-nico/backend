@@ -13,7 +13,7 @@ export class StorageService {
 	 */
 	private readonly BASE_PATH = this.configService.getOrThrow<string>(Environment.STORAGE_PATH);
 
-	public constructor(private readonly configService: ConfigService) {}
+	constructor(private readonly configService: ConfigService) {}
 
 	/**
 	 * Saves a file with the given id and data.

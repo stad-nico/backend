@@ -40,7 +40,7 @@ export async function createZIPArchiveOrThrow(
 		}
 	}
 
-	archive.finalize();
+	await archive.finalize();
 	return stream;
 }
 
@@ -61,8 +61,8 @@ function buildFilePaths(rootId: string, files: Array<File>, directories: Array<D
 			{ id: directory.id, relativePath: directory.name },
 			...buildFilePaths(directory.id, files, directories).map((entry) => ({
 				id: entry.id,
-				relativePath: `${directory.name}/${entry.relativePath}`,
-			})),
+				relativePath: `${directory.name}/${entry.relativePath}`
+			}))
 		]);
 
 	return [...filesToPush, ...directoriesToPush];

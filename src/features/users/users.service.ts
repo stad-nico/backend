@@ -54,6 +54,6 @@ export class UserService {
 
 		const user = this.userRepository.create({ username, password: cryptedPassword });
 
-		this.directoryRepository.create({ parent: null, name: ROOT_ID, user: user });
+		this.directoryRepository.create({ parent: null, name: ROOT_ID, user });
 	}
 }

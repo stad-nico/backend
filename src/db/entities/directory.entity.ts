@@ -15,14 +15,14 @@ export const DIRECTORY_TABLE_NAME = 'directories';
 @Entity({ tableName: DIRECTORY_TABLE_NAME, repository: () => DirectoryRepository })
 @Unique({ properties: ['parent', 'name'] })
 export class Directory {
-	[OptionalProps]?: 'id' | 'parent' | 'createdAt' | 'updatedAt';
-	[EntityRepositoryType]?: DirectoryRepository;
+	public [OptionalProps]?: 'id' | 'parent' | 'createdAt' | 'updatedAt';
+	public [EntityRepositoryType]?: DirectoryRepository;
 
 	@PrimaryKey({ type: 'uuid', nullable: false, defaultRaw: 'UUID()', unique: true })
-	readonly id: string = v4();
+	public readonly id: string = v4();
 
 	@Property({ type: 'varchar', nullable: false })
-	readonly name!: string;
+	public readonly name!: string;
 
 	@ManyToOne({
 		entity: () => Directory,
@@ -32,15 +32,15 @@ export class Directory {
 		deleteRule: 'cascade',
 		name: 'parentId',
 		serializer: (directory: Directory) => directory.id,
-		serializedName: 'parentId',
+		serializedName: 'parentId'
 	})
-	readonly parent!: Directory | null;
+	public readonly parent!: Directory | null;
 
 	@Property({ type: 'datetime', nullable: false, defaultRaw: 'current_timestamp()' })
-	readonly createdAt!: Date;
+	public readonly createdAt!: Date;
 
 	@Property({ type: 'datetime', nullable: false, defaultRaw: 'current_timestamp()', extra: 'on update current_timestamp()' })
-	readonly updatedAt!: Date;
+	public readonly updatedAt!: Date;
 
 	@ManyToOne({
 		entity: () => User,
@@ -48,7 +48,7 @@ export class Directory {
 		updateRule: 'no action',
 		deleteRule: 'cascade',
 		name: 'userId',
-		referenceColumnName: 'id',
+		referenceColumnName: 'id'
 	})
-	readonly user!: User;
+	public readonly user!: User;
 }

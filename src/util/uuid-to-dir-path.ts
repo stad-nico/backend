@@ -19,7 +19,7 @@ export function uuidToDirPath(uuid: string): string {
 		throw new Error('The uuid does not match the expected format');
 	}
 
-	const directoryPath = match.reduce((acc, curr, ind) => (acc += ind === 1 || ind === 2 ? '/' + curr : curr));
+	const directoryPath = match.reduce((acc, curr, ind) => (acc += ind === 1 || ind === 2 ? `/${  curr}` : curr));
 
 	return `${StoragePath.Data}/${directoryPath}`;
 }

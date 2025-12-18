@@ -5,17 +5,17 @@ import prettierConfig from 'eslint-config-prettier';
 import tsEslint from 'typescript-eslint';
 
 export default tsEslint.config({
-	files: ['**/*.ts'],
+	files: ['src/**/*.ts'],
 	extends: [js.configs.recommended, ...tsEslint.configs.recommended, ...tsEslint.configs.stylistic, prettierConfig],
 	plugins: {
-		'@stylistic': stylistic,
+		'@stylistic': stylistic
 	},
 	languageOptions: {
 		parser: typescriptEslintParser,
 		parserOptions: {
 			project: true,
-			tsconfigRootDir: import.meta.dirname,
-		},
+			tsconfigRootDir: import.meta.dirname
+		}
 	},
 	rules: {
 		/**
@@ -134,7 +134,7 @@ export default tsEslint.config({
 		 * Disallow usage of the `any` type
 		 * @see https://typescript-eslint.io/rules/no-explicit-any
 		 */
-		'@typescript-eslint/no-explicit-any': 'warn',
+		'@typescript-eslint/no-explicit-any': 'error',
 
 		/**
 		 * Disallow floating (unused / unawaited) promises
@@ -164,6 +164,6 @@ export default tsEslint.config({
 		 * Prefer `a?.b?.c` over `a && a.b && a.b.c`
 		 * @see https://typescript-eslint.io/rules/prefer-optional-chain
 		 */
-		'@typescript-eslint/prefer-optional-chain': 'error',
-	},
+		'@typescript-eslint/prefer-optional-chain': 'error'
+	}
 });

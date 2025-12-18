@@ -12,7 +12,7 @@ export class DownlaodFileParams {
 	@IsNotEmpty()
 	@ApiProperty({
 		example: '133a8736-111a-4cf7-ae84-dbe040ad4382',
-		description: 'The id of the parent directory where the file will be stored',
+		description: 'The id of the parent directory where the file will be stored'
 	})
-	readonly id!: string;
+	public readonly id!: string;
 }

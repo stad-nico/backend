@@ -8,7 +8,7 @@ import { ApiProperty } from '@nestjs/swagger';
 
 export class UploadFileResponse {
 	@ApiProperty({ example: '3c356389-dd1a-4c77-bc1b-7ac75f34d04d', description: 'The id of the uploaded file' })
-	readonly id: string;
+	public readonly id: string;
 
 	private constructor(id: string) {
 		this.id = id;

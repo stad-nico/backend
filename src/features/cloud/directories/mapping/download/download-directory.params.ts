@@ -12,7 +12,7 @@ export class DownloadDirectoryParams {
 	@IsNotEmpty()
 	@ApiProperty({
 		example: '133a8736-111a-4cf7-ae84-dbe040ad4382',
-		description: 'The id of the directory to download',
+		description: 'The id of the directory to download'
 	})
-	readonly id!: string;
+	public readonly id!: string;
 }

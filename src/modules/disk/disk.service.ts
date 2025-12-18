@@ -14,7 +14,7 @@ import { Environment, NodeEnv } from 'src/config/env.config';
 import { pathExists } from 'src/util/path-exists';
 
 export enum StoragePath {
-	Data = 'data',
+	Data = 'data'
 }
 
 @Injectable()
@@ -31,7 +31,7 @@ export class DiskService implements BeforeApplicationShutdown {
 	 */
 	private readonly configService: ConfigService;
 
-	public constructor(configService: ConfigService) {
+	constructor(configService: ConfigService) {
 		this.configService = configService;
 		this.storageLocationPath = configService.getOrThrow(Environment.STORAGE_PATH);
 	}

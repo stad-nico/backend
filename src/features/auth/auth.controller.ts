@@ -5,7 +5,7 @@
  * @author Nicolas Stadler
  *-------------------------------------------------------------------------*/
 import { Body, Controller, HttpCode, HttpStatus, Post } from '@nestjs/common';
-import { AuthOpenApi } from 'src/features/auth/auth.openapi';
+import * as AuthOpenApi from 'src/features/auth/auth.openapi';
 import { LoginBody } from 'src/features/auth/mapping/login/login.body';
 import { LoginResponse } from 'src/features/auth/mapping/login/login.response';
 import { RefreshResponse } from 'src/features/auth/mapping/refresh/refresh.response';

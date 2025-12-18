@@ -33,7 +33,7 @@ export const VALID_FILE_NAME_REGEXP = new RegExp(
 		'\\.?' + // optional leading dot
 		'[\\p{L}\\p{N}()_\\-*"\'? ]+' + // allowed chars including spaces inside
 		'(?:\\.[\\p{L}\\p{N}()_\\-*"\'? ]+)?' + // optional one dot + allowed chars (max 1 dot)
-		'(\.[a-zA-Z0-9]+)?' + // optional extension
+		'(.[a-zA-Z0-9]+)?' + // optional extension
 		'(?<! )' + // no trailing space
 		'$',
 	'u'

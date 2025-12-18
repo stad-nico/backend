@@ -4,5 +4,5 @@ export type FileMetadata = Pick<File, 'id' | 'name' | 'mimeType' | 'size' | 'cre
 	parentId: string;
 	userId: string;
 	path: string;
-	idChain: string[];
+	idChain: Array<string>;
 };
