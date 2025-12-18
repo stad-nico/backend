@@ -11,6 +11,7 @@
 		"mikro-orm": "npx mikro-orm",
 		"db:fresh": "npm run mikro-orm migration:fresh",
 		"build": "nest build",
+		"lint": "eslint --fix .",
 		"build:api": "cd clients/angular20 && npm i && npm run build",
 		"format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
 		"start": "SET NODE_ENV=dev&& nest start --watch",
