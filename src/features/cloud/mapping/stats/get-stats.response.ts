@@ -28,6 +28,11 @@ export class GetStatsResponse {
 	})
 	public readonly directories: number;
 
+	@ApiProperty({
+		description: 'The last uploaded files by the user',
+		type: UploadedFile,
+		isArray: true
+	})
 	public readonly lastUploadedFiles: Array<UploadedFile>;
 
 	private constructor(files: number, directories: number, lastUploadedFiles: Array<UploadedFile>) {
