@@ -8,12 +8,25 @@ import { Entity, EntityRepositoryType, ManyToOne, OptionalProps, PrimaryKey, Pro
 
 import { EntityRepository } from '@mikro-orm/mariadb';
 import { Directory } from 'src/db/entities/directory.entity';
+import { UploadedFile } from 'src/features/cloud/mapping/stats/get-stats.response';
 import { v4 } from 'uuid';
 import { User } from './user.entitiy';
 
 export class FileRepository extends EntityRepository<File> {
 	public async getTotalByUserId(userId: string): Promise<number> {
 		return this.em.createQueryBuilder(File).where({ user: userId }).getCount();
+	}
+
+	public async getLastUploadedByUserId(userId: string, limit: number): Promise<Array<UploadedFile>> {
+		return (await this.em.createQueryBuilder(File).where({ user: userId }).orderBy({ createdAt: 'DESC' }).limit(limit).getResult()).map(
+			(file) => ({
+				id: file.id,
+				name: file.name,
+				mimeType: file.mimeType,
+				createdAt: file.createdAt,
+				directoryId: file.parent.id
+			})
+		);
 	}
 }
 

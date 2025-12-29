@@ -14,7 +14,7 @@ export class GetFileMetadataResponse {
 	@ApiProperty({ description: 'The name of the file', type: 'string', example: 'file.txt' })
 	public readonly name: string;
 
-	@ApiProperty({ description: 'The name of the file', type: 'string', format: 'MimeType', example: 'text/plain' })
+	@ApiProperty({ description: 'The mime type of the file', type: 'string', format: 'MimeType', example: 'text/plain' })
 	public readonly mimeType: string;
 
 	@ApiProperty({ description: 'The size of the file in bytes', type: 'number', example: 1182 })
