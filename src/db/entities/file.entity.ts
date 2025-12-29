@@ -11,7 +11,11 @@ import { Directory } from 'src/db/entities/directory.entity';
 import { v4 } from 'uuid';
 import { User } from './user.entitiy';
 
-export class FileRepository extends EntityRepository<File> {}
+export class FileRepository extends EntityRepository<File> {
+	public async getTotalByUserId(userId: string): Promise<number> {
+		return this.em.createQueryBuilder(File).count().where({ user: userId }).execute();
+	}
+}
 
 export const FILES_TABLE_NAME = 'files';
 
@@ -47,7 +51,8 @@ export class File {
 		nullable: false,
 		updateRule: 'no action',
 		deleteRule: 'cascade',
-		referenceColumnName: 'id'
+		referenceColumnName: 'id',
+		name: 'userId'
 	})
 	public readonly user!: User;
 }

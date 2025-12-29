@@ -25,6 +25,10 @@ export interface DirectoryPath {
 }
 
 export class DirectoryRepository extends EntityRepository<Directory> {
+	public async getTotalByUserId(userId: string): Promise<number> {
+		return this.em.createQueryBuilder(Directory).count().where({ user: userId }).execute();
+	}
+
 	public async getContents(directory: Directory): Promise<Array<DirectoryContentDirectory>> {
 		const childDirectories = this.em
 			.createQueryBuilder(Tree)
