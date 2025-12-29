@@ -13,7 +13,7 @@ import { User } from './user.entitiy';
 
 export class FileRepository extends EntityRepository<File> {
 	public async getTotalByUserId(userId: string): Promise<number> {
-		return this.em.createQueryBuilder(File).count().where({ user: userId }).execute();
+		return this.em.createQueryBuilder(File).where({ user: userId }).getCount();
 	}
 }
 
