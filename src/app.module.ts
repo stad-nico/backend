@@ -10,11 +10,13 @@ import { ConfigModule } from '@nestjs/config';
 import { APP_GUARD } from '@nestjs/core';
 import { JwtModule } from '@nestjs/jwt';
 import { validate } from 'src/config/env.config';
-import { AuthModule } from 'src/features/auth/auth.module';
 import { CloudModule } from 'src/features/cloud/cloud.module';
 import { UsersModule } from 'src/features/users/users.module';
 import { DiskModule } from 'src/modules/disk/disk.module';
 import { JwtGuard } from 'src/shared/guards/jwt.guard';
+import { AuthenticationModule } from './features/auth/auth.module';
+import { TodoModule } from './features/todos/todos.module';
+import { AuthorizationModule } from './modules/authorization/authorization.module';
 
 @Module({
 	imports: [
@@ -31,11 +33,15 @@ import { JwtGuard } from 'src/shared/guards/jwt.guard';
 
 		DiskModule.forRootAsync(),
 
-		AuthModule,
+		AuthorizationModule,
+
+		AuthenticationModule,
 
 		CloudModule,
 
-		UsersModule
+		UsersModule,
+
+		TodoModule
 	],
 	providers: [{ provide: APP_GUARD, useClass: JwtGuard }]
 })

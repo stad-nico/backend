@@ -42,6 +42,7 @@
 		"mariadb": "^3.4.0",
 		"puppeteer": "^24.26.1",
 		"reflect-metadata": "^0.2.2",
+		"role-acl": "^4.5.4",
 		"uuid": "^9.0.1"
 	},
 	"devDependencies": {

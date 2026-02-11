@@ -16,6 +16,7 @@ export function configureApplication(application: INestApplication): void {
 	application.enableShutdownHooks();
 
 	application.useLogger(new ConsoleLogger());
+
 	application.useGlobalPipes(
 		new ValidationPipe({
 			exceptionFactory: (errors: Array<ValidationError>) => {
