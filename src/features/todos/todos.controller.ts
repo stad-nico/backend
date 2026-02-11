@@ -1,6 +1,5 @@
 import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Patch, Post } from '@nestjs/common';
 import { User } from 'src/db/entities/user.entitiy';
-import { Authorization } from 'src/modules/authorization/authorization';
 import { User as UserDecorator } from 'src/shared/decorators/user.decorator';
 import { CreateTodoBody } from './dtos/create/create-todo.body';
 import { CreateTodoResponse } from './dtos/create/create-todo.response';
@@ -15,8 +14,8 @@ import { TodoService } from './todos.service';
 @TodoOpenApi.Controller
 export class TodoController {
 	constructor(
-		private readonly todoService: TodoService,
-		private readonly authorization: Authorization
+		private readonly todoService: TodoService
+		// private readonly authorization: Authorization
 	) {}
 
 	@Get('/all')
